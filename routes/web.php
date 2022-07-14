@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['prefix'=>'admin','name'=>'admin.'],function(){
+    Route::get('dashboard',function(){
+         return view('master');
+    });
+    Route::get('/{any?}',function(){
+         return view('master');
+    })->where('any','[\/\w\.-]*');
+
+});

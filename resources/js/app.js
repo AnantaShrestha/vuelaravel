@@ -1,6 +1,5 @@
 require('./bootstrap');
-window.Vue=require('vue').default
-
+import { createApp } from 'vue'
 
 axios.defaults.withCredentials = true
 axios.defaults.baseURL= 'http://developed.test/api/'
@@ -11,3 +10,14 @@ if(getToken){
       axios.defaults.headers.common['Authorization'] =`Bearer ${token}` 
     }
 }
+
+
+import router from './routes'
+import store from './services/store'
+import App from './views/layouts/default.vue'
+
+const app = createApp({})
+app.component('App', App)
+app.use(router)
+app.use(store)
+app.mount('#app')
