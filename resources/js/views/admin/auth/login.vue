@@ -5,7 +5,16 @@
 				<img src="/images/loginimage.svg" />
 			</div>
 			<div className="auth-form">
-				<Form method="post" name="loginForm" className="loginForm" :onFinish="loginForm">
+				<Form 
+					method="post" 
+					name="loginForm" 
+					className="loginForm" 
+					:onFinish="loginForm"
+					:validation = "[
+							{name:'username',rules:'required'},
+							{name:'password',rules:'required'}
+					]"
+				>
 					<TextField 
 						label="Username" 
 						name="username" 
@@ -19,6 +28,7 @@
 						wrapperClassName="auth-row" 
 						className="form-control"
 						placeholder="Password"
+						type="password"
 					/>
 					
 					<div className="auth-action-wrapper">
@@ -43,7 +53,7 @@
 		},
 		methods:{
 			loginForm(values){
-				
+				console.log(values)
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 <template>
-	<form :method="method" :class="className" :name="name" :ref="name" @submit.prevent="onSubmit">
+	<form :method="method" :class="className" :name="name" @submit.prevent="onSubmit">
 		<slot></slot>
 	</form>
 </template>
@@ -21,20 +21,27 @@
 			},
 			validation:{
 				type:[Array,Object],
-				require:false
+				default:[]
 			},
 			onFinish:{
 				type:Function,
 				require:true,
 			},
 		},
-		mounted(){
-			
+		data(){
+			return{
+				errors:{}
+			}
 		},
 		methods:{
 			onSubmit(e){
-				let data = FormHandling.getFormData(e.target.getAttribute('name'));
-				return this.onFinish(data)
+				let formName = e.target.getAttribute('name')
+				let validate = FormHandling.validation(formName,this.validation)
+
+		 		if(validate === true)
+
+		 			return this.onFinish(FormHandling.getFormData(formName))
+	
 			}
 		}
 	}
