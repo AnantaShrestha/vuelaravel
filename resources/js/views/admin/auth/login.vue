@@ -5,7 +5,7 @@
 				<img src="/images/loginimage.svg" />
 			</div>
 			<div className="auth-form">
-				<Form method="post" name="loginForm" className="loginForm">
+				<Form method="post" name="loginForm" className="loginForm" :onFinish="loginForm">
 					<TextField 
 						label="Username" 
 						name="username" 
@@ -40,6 +40,11 @@
 	export default{
 		components:{
 			TextField,Button,Form
+		},
+		methods:{
+			loginForm(values){
+				
+			}
 		}
 	}
 </script>

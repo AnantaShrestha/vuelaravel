@@ -1,5 +1,5 @@
 <template>
-	<button disabled={isLoading} :type="type" :class="className" >
+	<button :disabled="isLoading" :type="type" :class="className" >
 		<span className="spinner" v-if="isLoading"></span>
 		<span className="btn-span" v-else >{{text}}</span>
 	</button>

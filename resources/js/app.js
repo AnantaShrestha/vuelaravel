@@ -1,6 +1,7 @@
 require('./bootstrap');
 import { createApp } from 'vue'
-
+import FormHandling from './components/Form/formHandling'
+window.FormHandling =new FormHandling()
 axios.defaults.withCredentials = true
 axios.defaults.baseURL= 'http://developed.test/api/'
 let getToken=localStorage.getItem('token')
