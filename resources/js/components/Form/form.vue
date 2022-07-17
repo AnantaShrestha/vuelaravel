@@ -17,7 +17,7 @@
 			},
 			name:{
 				type:String,
-				require:false
+				default:'form'
 			},
 			validation:{
 				type:[Array,Object],
@@ -37,11 +37,9 @@
 			onSubmit(e){
 				let formName = e.target.getAttribute('name')
 				let validate = FormHandling.validation(formName,this.validation)
-
 		 		if(validate === true)
 
 		 			return this.onFinish(FormHandling.getFormData(formName))
-	
 			}
 		}
 	}

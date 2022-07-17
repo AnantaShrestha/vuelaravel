@@ -39,7 +39,7 @@
 		},
 		methods:{
 			onInput(e){
-				FormHandling.formData(e.target.form.getAttribute('name'),e.target)
+				FormHandling.formData(e.target)
 			}
 		}
 	}
