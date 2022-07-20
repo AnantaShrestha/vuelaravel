@@ -1,4 +1,4 @@
-import FormHandling from './formHandling'
+import FormHandling from './core/formHandling'
 window.FormHandling =new FormHandling()
 
 export {default as Form} from './form'

@@ -5,11 +5,16 @@
 		</div>
 		<div className="form-input">
 			<input :name = 'name' :class="className" :type="type" :placeholder="placeholder" @input ="onInput" />
+			{{errors}}
 		</div>
 	</div>
 </template>
 <script>
+	import HasError from './hasError'
 	export default{
+		components:{
+			HasError
+		},
 		props:{
 			wrapperClassName:{
 				type:String,
@@ -37,9 +42,12 @@
 			},
 
 		},
+
+		
+		
 		methods:{
 			onInput(e){
-				FormHandling.formData(e.target)
+				FormHandling.handleChange(e.target)
 			}
 		}
 	}

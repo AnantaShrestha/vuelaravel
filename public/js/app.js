@@ -19784,7 +19784,7 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       require: false
     },
-    name: {
+    group: {
       type: String,
       "default": 'form'
     },
@@ -19804,9 +19804,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onSubmit: function onSubmit(e) {
-      var formName = e.target.getAttribute('name');
-      var validate = FormHandling.validation(formName, this.validation);
-      if (validate === true) return this.onFinish(FormHandling.getFormData(formName));
+      FormHandling.setGroup(this.group);
+      var validate = FormHandling.validation(this.group, this.validation);
+      if (validate === true) return this.onFinish(FormHandling.getFormData(this.group));
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Form/hasError.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Form/hasError.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    message: {
+      type: String,
+      require: false
     }
   }
 });
@@ -19824,7 +19846,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _hasError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasError */ "./resources/js/components/Form/hasError.vue");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    HasError: _hasError__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: {
     wrapperClassName: {
       type: String,
@@ -19853,7 +19880,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onInput: function onInput(e) {
-      FormHandling.formData(e.target);
+      FormHandling.handleChange(e.target);
     }
   }
 });
@@ -19942,13 +19969,39 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", {
     method: $props.method,
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($props.className),
-    name: $props.name,
+    name: $props.group,
     onSubmit: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.onSubmit && $options.onSubmit.apply($options, arguments);
     }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default")], 42
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default", {
+    group: $props.group
+  })], 42
   /* CLASS, PROPS, HYDRATE_EVENTS */
   , _hoisted_1);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Form/hasError.vue?vue&type=template&id=a29cf0c4":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Form/hasError.vue?vue&type=template&id=a29cf0c4 ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "validation-error-wrapper"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.message), 1
+  /* TEXT */
+  )]);
 }
 
 /***/ }),
@@ -19990,7 +20043,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 42
   /* CLASS, PROPS, HYDRATE_EVENTS */
-  , _hoisted_3)])], 2
+  , _hoisted_3), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.errors), 1
+  /* TEXT */
+  )])], 2
   /* CLASS */
   );
 }
@@ -20043,7 +20098,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Form, {
     method: "post",
-    name: "loginForm",
+    group: "loginForm",
     className: "loginForm",
     onFinish: $options.loginForm,
     validation: [{
@@ -20193,10 +20248,46 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/Form/formHandling.js":
-/*!******************************************************!*\
-  !*** ./resources/js/components/Form/formHandling.js ***!
-  \******************************************************/
+/***/ "./resources/js/components/Form/core/errorHandling.js":
+/*!************************************************************!*\
+  !*** ./resources/js/components/Form/core/errorHandling.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Error)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var Error = /*#__PURE__*/function () {
+  function Error() {
+    _classCallCheck(this, Error);
+  }
+
+  _createClass(Error, [{
+    key: "set",
+    value: function set(errors) {
+      this.errors = errors;
+    }
+  }]);
+
+  return Error;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Form/core/formHandling.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/Form/core/formHandling.js ***!
+  \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -20204,18 +20295,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ FormHandling)
 /* harmony export */ });
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
+/* harmony import */ var _errorHandling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./errorHandling */ "./resources/js/components/Form/core/errorHandling.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -20228,28 +20308,30 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
+
+
 var FormHandling = /*#__PURE__*/function () {
   function FormHandling() {
     _classCallCheck(this, FormHandling);
 
     this.data = {};
     this.errors = {};
+    this.group = '';
   } //FORM DATA FORMAT
 
 
   _createClass(FormHandling, [{
-    key: "formData",
-    value: function formData(target) {
+    key: "handleChange",
+    value: function handleChange(target) {
       var formData = this.data;
-      var fieldName = target.getAttribute('name');
-      var formName = target.form.getAttribute('name');
+      var fieldName = target.name;
+      var group = target.form.name;
       var value = target.value;
-      target.nextSibling && (target.classList.remove('invalid'), target.nextSibling.remove());
 
-      if (formData[formName] === undefined) {
-        formData = _objectSpread(_objectSpread({}, formData), {}, _defineProperty({}, formName, _defineProperty({}, fieldName, value)));
+      if (formData[group] === undefined) {
+        formData = _objectSpread(_objectSpread({}, formData), {}, _defineProperty({}, group, _defineProperty({}, fieldName, value)));
       } else {
-        formData[formName][fieldName] = value;
+        formData[group][fieldName] = value;
       }
 
       this.data = formData;
@@ -20258,66 +20340,51 @@ var FormHandling = /*#__PURE__*/function () {
 
   }, {
     key: "validation",
-    value: function validation(formName, validationData) {
-      var _errors$formName;
+    value: function validation(group, validationData) {
+      var _errors$group;
 
-      var formData = this.data[formName];
+      var formData = this.data[group];
       var errors = this.errors;
       validationData && (validationData === null || validationData === void 0 ? void 0 : validationData.map(function (item) {
         var name = item === null || item === void 0 ? void 0 : item.name;
         var rules = item === null || item === void 0 ? void 0 : item.rules.split('|');
 
         if ((formData === undefined || formData[name] === undefined || formData[name] === '') && rules.includes('required')) {
-          if (errors[formName] === undefined) {
-            errors = _objectSpread(_objectSpread({}, errors), {}, _defineProperty({}, formName, _defineProperty({}, name, "".concat(name, " field is required"))));
+          if (errors[group] === undefined) {
+            errors = _objectSpread(_objectSpread({}, errors), {}, _defineProperty({}, group, _defineProperty({}, name, "".concat(name, " field is required"))));
           } else {
-            errors[formName][name] = "".concat(name, " field is required");
+            errors[group][name] = "".concat(name, " field is required");
           }
         }
-      }));
-      this.validationMessage(formName, errors[formName]);
-      return (_errors$formName = errors[formName]) !== null && _errors$formName !== void 0 ? _errors$formName : true;
+      })); //Errors.set(errors)
+
+      return (_errors$group = errors[group]) !== null && _errors$group !== void 0 ? _errors$group : true;
     } //validation message
-
-  }, {
-    key: "validationMessage",
-    value: function validationMessage(formName, errors) {
-      var _Object$entries;
-
-      var form = document.querySelector("form[name = ".concat(formName, "]"));
-      errors && ((_Object$entries = Object.entries(errors)) === null || _Object$entries === void 0 ? void 0 : _Object$entries.map(function (_ref, i) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            key = _ref2[0],
-            error = _ref2[1];
-
-        var fieldElement = form.querySelector("input[name=".concat(key, "]")) || form.querySelector("textarea[name=".concat(key, "]"));
-        var div = document.createElement('div');
-        div.classList.add('validation-error-wrapper');
-        var span = document.createElement('span');
-        div.append(span);
-
-        if (fieldElement) {
-          span.innerHTML = error;
-          fieldElement.classList.add('invalid');
-          fieldElement.nextSibling && fieldElement.nextSibling.remove();
-          fieldElement.parentNode.append(div);
-        }
-      }));
-    } //GET FORM DATA
+    //GET FORM DATA
 
   }, {
     key: "getFormData",
-    value: function getFormData(formName) {
-      var _this$data$formName;
+    value: function getFormData(group) {
+      var _this$data$group;
 
-      return (_this$data$formName = this.data[formName]) !== null && _this$data$formName !== void 0 ? _this$data$formName : {};
+      return (_this$data$group = this.data[group]) !== null && _this$data$group !== void 0 ? _this$data$group : {};
     }
   }, {
     key: "getValidationErrors",
-    value: function getValidationErrors(formName) {
-      var _this$errors$formName;
+    value: function getValidationErrors(group) {
+      var _this$errors$group;
 
-      return (_this$errors$formName = this.errors[formName]) !== null && _this$errors$formName !== void 0 ? _this$errors$formName : {};
+      return (_this$errors$group = this.errors[group]) !== null && _this$errors$group !== void 0 ? _this$errors$group : {};
+    }
+  }, {
+    key: "setGroup",
+    value: function setGroup(group) {
+      return this.group = group;
+    }
+  }, {
+    key: "getGroup",
+    value: function getGroup() {
+      return this.group;
     }
   }]);
 
@@ -20341,12 +20408,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Form": () => (/* reexport safe */ _form__WEBPACK_IMPORTED_MODULE_1__["default"]),
 /* harmony export */   "TextField": () => (/* reexport safe */ _textField__WEBPACK_IMPORTED_MODULE_3__["default"])
 /* harmony export */ });
-/* harmony import */ var _formHandling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formHandling */ "./resources/js/components/Form/formHandling.js");
+/* harmony import */ var _core_formHandling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core/formHandling */ "./resources/js/components/Form/core/formHandling.js");
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form */ "./resources/js/components/Form/form.vue");
 /* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./button */ "./resources/js/components/Form/button.vue");
 /* harmony import */ var _textField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./textField */ "./resources/js/components/Form/textField.vue");
 
-window.FormHandling = new _formHandling__WEBPACK_IMPORTED_MODULE_0__["default"]();
+window.FormHandling = new _core_formHandling__WEBPACK_IMPORTED_MODULE_0__["default"]();
 
 
 
@@ -37913,6 +37980,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/components/Form/hasError.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/Form/hasError.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _hasError_vue_vue_type_template_id_a29cf0c4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasError.vue?vue&type=template&id=a29cf0c4 */ "./resources/js/components/Form/hasError.vue?vue&type=template&id=a29cf0c4");
+/* harmony import */ var _hasError_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hasError.vue?vue&type=script&lang=js */ "./resources/js/components/Form/hasError.vue?vue&type=script&lang=js");
+/* harmony import */ var E_wampp_www_demo_vuelaravel_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,E_wampp_www_demo_vuelaravel_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_hasError_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_hasError_vue_vue_type_template_id_a29cf0c4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/Form/hasError.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/components/Form/textField.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/Form/textField.vue ***!
@@ -38053,6 +38148,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Form/hasError.vue?vue&type=script&lang=js":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Form/hasError.vue?vue&type=script&lang=js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_hasError_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_hasError_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./hasError.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Form/hasError.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/components/Form/textField.vue?vue&type=script&lang=js":
 /*!****************************************************************************!*\
   !*** ./resources/js/components/Form/textField.vue?vue&type=script&lang=js ***!
@@ -38113,6 +38224,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_form_vue_vue_type_template_id_31df25d4__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_form_vue_vue_type_template_id_31df25d4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./form.vue?vue&type=template&id=31df25d4 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Form/form.vue?vue&type=template&id=31df25d4");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Form/hasError.vue?vue&type=template&id=a29cf0c4":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Form/hasError.vue?vue&type=template&id=a29cf0c4 ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_hasError_vue_vue_type_template_id_a29cf0c4__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_hasError_vue_vue_type_template_id_a29cf0c4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./hasError.vue?vue&type=template&id=a29cf0c4 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Form/hasError.vue?vue&type=template&id=a29cf0c4");
 
 
 /***/ }),

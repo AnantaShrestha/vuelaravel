@@ -7,7 +7,7 @@
 			<div className="auth-form">
 				<Form 
 					method="post" 
-					name="loginForm" 
+					group="loginForm" 
 					className="loginForm" 
 					:onFinish="loginForm"
 					:validation = "[
