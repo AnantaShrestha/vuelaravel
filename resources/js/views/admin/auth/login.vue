@@ -14,6 +14,7 @@
 							{name:'username',rules:'required'},
 							{name:'password',rules:'required'}
 					]"
+
 				>
 					<TextField 
 						label="Username" 
@@ -53,7 +54,7 @@
 		},
 		methods:{
 			loginForm(values){
-				console.log(values)
+				
 			}
 		}
 	}

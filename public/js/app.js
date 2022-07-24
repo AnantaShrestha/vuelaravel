@@ -19797,16 +19797,16 @@ __webpack_require__.r(__webpack_exports__);
       require: true
     }
   },
-  data: function data() {
-    return {
-      errors: {}
-    };
-  },
   methods: {
-    onSubmit: function onSubmit(e) {
-      FormHandling.setGroup(this.group);
-      var validate = FormHandling.validation(this.group, this.validation);
-      if (validate === true) return this.onFinish(FormHandling.getFormData(this.group));
+    onSubmit: function onSubmit() {
+      FormHandling.setFormGroup(this.group);
+      var formData = FormData.get(this.group);
+      var validated = FormData.validated(this.validation, formData);
+
+      if (validated === true) {
+        FormData.remove(this.group);
+        return this.onFinish(formData);
+      }
     }
   }
 });
@@ -19847,37 +19847,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _hasError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasError */ "./resources/js/components/Form/hasError.vue");
+/* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base */ "./resources/js/components/Form/base.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mixins: [_base__WEBPACK_IMPORTED_MODULE_1__["default"]],
   components: {
     HasError: _hasError__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: {
-    wrapperClassName: {
-      type: String,
-      require: false
-    },
-    className: {
-      type: String,
-      require: false
-    },
-    label: {
-      type: String,
-      require: false
-    },
-    name: {
-      type: String,
-      require: true
-    },
-    type: {
-      type: String,
-      "default": 'text'
-    },
-    placeholder: {
-      type: String,
-      require: false
-    }
-  },
+  props: {},
   methods: {
     onInput: function onInput(e) {
       FormHandling.handleChange(e.target);
@@ -19907,9 +19885,7 @@ __webpack_require__.r(__webpack_exports__);
     Form: _components_Form__WEBPACK_IMPORTED_MODULE_0__.Form
   },
   methods: {
-    loginForm: function loginForm(values) {
-      console.log(values);
-    }
+    loginForm: function loginForm(values) {}
   }
 });
 
@@ -20030,22 +20006,20 @@ var _hoisted_3 = ["name", "type", "placeholder"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     className: "form-group",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($props.wrapperClassName)
-  }, [$props.label ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.label), 1
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(_ctx.wrapperClassName)
+  }, [_ctx.label ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.label), 1
   /* TEXT */
   )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    name: $props.name,
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($props.className),
-    type: $props.type,
-    placeholder: $props.placeholder,
+    name: _ctx.name,
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(_ctx.className),
+    type: _ctx.type,
+    placeholder: _ctx.placeholder,
     onInput: _cache[0] || (_cache[0] = function () {
       return $options.onInput && $options.onInput.apply($options, arguments);
     })
   }, null, 42
   /* CLASS, PROPS, HYDRATE_EVENTS */
-  , _hoisted_3), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.errors), 1
-  /* TEXT */
-  )])], 2
+  , _hoisted_3)])], 2
   /* CLASS */
   );
 }
@@ -20188,9 +20162,10 @@ function render(_ctx, _cache) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
-/* harmony import */ var _services_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/store */ "./resources/js/services/store.js");
-/* harmony import */ var _views_layouts_default_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/layouts/default.vue */ "./resources/js/views/layouts/default.vue");
+/* harmony import */ var _core_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core/api */ "./resources/js/core/api.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./resources/js/routes/index.js");
+/* harmony import */ var _services_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/store */ "./resources/js/services/store.js");
+/* harmony import */ var _views_layouts_default_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/layouts/default.vue */ "./resources/js/views/layouts/default.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -20207,12 +20182,14 @@ if (getToken) {
 }
 
 
+window.Api = new _core_api__WEBPACK_IMPORTED_MODULE_1__["default"]();
+
 
 
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({});
-app.component('App', _views_layouts_default_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
-app.use(_routes__WEBPACK_IMPORTED_MODULE_1__["default"]);
-app.use(_services_store__WEBPACK_IMPORTED_MODULE_2__["default"]);
+app.component('App', _views_layouts_default_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
+app.use(_routes__WEBPACK_IMPORTED_MODULE_2__["default"]);
+app.use(_services_store__WEBPACK_IMPORTED_MODULE_3__["default"]);
 app.mount('#app');
 
 /***/ }),
@@ -20248,6 +20225,60 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/components/Form/base.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/Form/base.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _core_errorHandling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core/errorHandling */ "./resources/js/components/Form/core/errorHandling.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    wrapperClassName: {
+      type: String,
+      require: false
+    },
+    className: {
+      type: String,
+      require: false
+    },
+    label: {
+      type: String,
+      require: false
+    },
+    name: {
+      type: String,
+      require: true
+    },
+    type: {
+      type: String,
+      "default": 'text'
+    },
+    placeholder: {
+      type: String,
+      require: false
+    },
+    group: {
+      type: String,
+      require: false
+    },
+    errors: {
+      type: Object,
+      "default": function _default() {
+        return new _core_errorHandling__WEBPACK_IMPORTED_MODULE_0__["default"]();
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/components/Form/core/errorHandling.js":
 /*!************************************************************!*\
   !*** ./resources/js/components/Form/core/errorHandling.js ***!
@@ -20268,6 +20299,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Error = /*#__PURE__*/function () {
   function Error() {
     _classCallCheck(this, Error);
+
+    this.errors = {};
   }
 
   _createClass(Error, [{
@@ -20275,9 +20308,99 @@ var Error = /*#__PURE__*/function () {
     value: function set(errors) {
       this.errors = errors;
     }
+  }, {
+    key: "get",
+    value: function get() {
+      return this.errors;
+    }
   }]);
 
   return Error;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Form/core/formData.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Form/core/formData.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ FormData)
+/* harmony export */ });
+/* harmony import */ var _errorHandling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./errorHandling */ "./resources/js/components/Form/core/errorHandling.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+
+
+var FormData = /*#__PURE__*/function () {
+  function FormData() {
+    _classCallCheck(this, FormData);
+
+    this.data = {};
+  } //set form data
+
+
+  _createClass(FormData, [{
+    key: "set",
+    value: function set(data) {
+      var manageData = this.data;
+
+      if (manageData[data.group] === undefined) {
+        manageData = _objectSpread(_objectSpread({}, manageData), {}, _defineProperty({}, data.group, _defineProperty({}, data.fieldName, data.value)));
+      } else {
+        manageData[data.group][data.fieldName] = data.value;
+      }
+
+      this.data = manageData;
+    } // validate form data
+
+  }, {
+    key: "validated",
+    value: function validated(rules, data) {
+      var errors = {};
+      rules && (rules === null || rules === void 0 ? void 0 : rules.map(function (item, i) {
+        var field = item === null || item === void 0 ? void 0 : item.name;
+        var fieldRules = item === null || item === void 0 ? void 0 : item.rules;
+        var fieldRuleArr = fieldRules === null || fieldRules === void 0 ? void 0 : fieldRules.split('|');
+
+        if (fieldRuleArr.includes('required') && (data === undefined || data[field] === undefined || data[field] === '')) {
+          errors = _objectSpread(_objectSpread({}, errors), {}, _defineProperty({}, field, "".concat(field, " field is required")));
+        }
+      }));
+      new _errorHandling__WEBPACK_IMPORTED_MODULE_0__["default"]().set(errors);
+      return Object.keys(errors).length === 0 ? true : errors;
+    } //get form data
+
+  }, {
+    key: "get",
+    value: function get(group) {
+      return this.data[group];
+    } //remove form data
+
+  }, {
+    key: "remove",
+    value: function remove(group) {
+      delete this.data[group];
+    }
+  }]);
+
+  return FormData;
 }();
 
 
@@ -20296,12 +20419,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ FormHandling)
 /* harmony export */ });
 /* harmony import */ var _errorHandling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./errorHandling */ "./resources/js/components/Form/core/errorHandling.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -20314,77 +20431,31 @@ var FormHandling = /*#__PURE__*/function () {
   function FormHandling() {
     _classCallCheck(this, FormHandling);
 
-    this.data = {};
-    this.errors = {};
-    this.group = '';
-  } //FORM DATA FORMAT
+    this.currentGroup = '';
+  } //handle input change
 
 
   _createClass(FormHandling, [{
     key: "handleChange",
     value: function handleChange(target) {
-      var formData = this.data;
-      var fieldName = target.name;
-      var group = target.form.name;
-      var value = target.value;
-
-      if (formData[group] === undefined) {
-        formData = _objectSpread(_objectSpread({}, formData), {}, _defineProperty({}, group, _defineProperty({}, fieldName, value)));
-      } else {
-        formData[group][fieldName] = value;
-      }
-
-      this.data = formData;
-      return formData;
-    } //VALIDATION FORM
+      var data = {
+        value: target.value,
+        group: target.form.name,
+        fieldName: target.name
+      };
+      FormData.set(data);
+    } //set current group
 
   }, {
-    key: "validation",
-    value: function validation(group, validationData) {
-      var _errors$group;
-
-      var formData = this.data[group];
-      var errors = this.errors;
-      validationData && (validationData === null || validationData === void 0 ? void 0 : validationData.map(function (item) {
-        var name = item === null || item === void 0 ? void 0 : item.name;
-        var rules = item === null || item === void 0 ? void 0 : item.rules.split('|');
-
-        if ((formData === undefined || formData[name] === undefined || formData[name] === '') && rules.includes('required')) {
-          if (errors[group] === undefined) {
-            errors = _objectSpread(_objectSpread({}, errors), {}, _defineProperty({}, group, _defineProperty({}, name, "".concat(name, " field is required"))));
-          } else {
-            errors[group][name] = "".concat(name, " field is required");
-          }
-        }
-      })); //Errors.set(errors)
-
-      return (_errors$group = errors[group]) !== null && _errors$group !== void 0 ? _errors$group : true;
-    } //validation message
-    //GET FORM DATA
+    key: "setFormGroup",
+    value: function setFormGroup(group) {
+      return this.currentGroup = group;
+    } //get current form group
 
   }, {
-    key: "getFormData",
-    value: function getFormData(group) {
-      var _this$data$group;
-
-      return (_this$data$group = this.data[group]) !== null && _this$data$group !== void 0 ? _this$data$group : {};
-    }
-  }, {
-    key: "getValidationErrors",
-    value: function getValidationErrors(group) {
-      var _this$errors$group;
-
-      return (_this$errors$group = this.errors[group]) !== null && _this$errors$group !== void 0 ? _this$errors$group : {};
-    }
-  }, {
-    key: "setGroup",
-    value: function setGroup(group) {
-      return this.group = group;
-    }
-  }, {
-    key: "getGroup",
-    value: function getGroup() {
-      return this.group;
+    key: "getFormGroup",
+    value: function getFormGroup() {
+      return this.currentGroup;
     }
   }]);
 
@@ -20404,17 +20475,73 @@ var FormHandling = /*#__PURE__*/function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Button": () => (/* reexport safe */ _button__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "Form": () => (/* reexport safe */ _form__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "TextField": () => (/* reexport safe */ _textField__WEBPACK_IMPORTED_MODULE_3__["default"])
+/* harmony export */   "Button": () => (/* reexport safe */ _button__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   "Form": () => (/* reexport safe */ _form__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   "TextField": () => (/* reexport safe */ _textField__WEBPACK_IMPORTED_MODULE_4__["default"])
 /* harmony export */ });
 /* harmony import */ var _core_formHandling__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core/formHandling */ "./resources/js/components/Form/core/formHandling.js");
-/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form */ "./resources/js/components/Form/form.vue");
-/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./button */ "./resources/js/components/Form/button.vue");
-/* harmony import */ var _textField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./textField */ "./resources/js/components/Form/textField.vue");
+/* harmony import */ var _core_formData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core/formData */ "./resources/js/components/Form/core/formData.js");
+/* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form */ "./resources/js/components/Form/form.vue");
+/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./button */ "./resources/js/components/Form/button.vue");
+/* harmony import */ var _textField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./textField */ "./resources/js/components/Form/textField.vue");
 
 window.FormHandling = new _core_formHandling__WEBPACK_IMPORTED_MODULE_0__["default"]();
 
+window.FormData = new _core_formData__WEBPACK_IMPORTED_MODULE_1__["default"](); // import Error from './core/errorHandling'
+// window.Error = new Error()
+
+
+
+
+
+/***/ }),
+
+/***/ "./resources/js/core/api.js":
+/*!**********************************!*\
+  !*** ./resources/js/core/api.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Api)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+var Api = /*#__PURE__*/function () {
+  function Api() {
+    _classCallCheck(this, Api);
+  }
+
+  _createClass(Api, [{
+    key: "get",
+    value: function get(url) {
+      return axios.get(url);
+    }
+  }, {
+    key: "post",
+    value: function post(url, data) {
+      return axios.post(url, data);
+    }
+  }, {
+    key: "put",
+    value: function put(url, data) {
+      return axios.put(url, data);
+    }
+  }, {
+    key: "delete",
+    value: function _delete(url) {
+      return axios["delete"](url);
+    }
+  }]);
+
+  return Api;
+}();
 
 
 
@@ -20464,6 +20591,60 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__.createRouter({
 
 /***/ }),
 
+/***/ "./resources/js/services/authStore.js":
+/*!********************************************!*\
+  !*** ./resources/js/services/authStore.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  state: {
+    loading: false,
+    token: localStorage.getItem('token') || '',
+    user: {}
+  },
+  mutation: {
+    auth_init: function auth_init(state) {
+      state.loading = true;
+    },
+    auth_success: function auth_success(state, data) {
+      state.token = token;
+      state.loading = false;
+    }
+  },
+  actions: {
+    login: function login(_ref, data) {
+      var commit = _ref.commit;
+      return new Promise(function (resolve, reject) {
+        commit('auth_init');
+        Api.post('/admin/login', data).then(function (resp) {
+          resolve(resp);
+        })["catch"](function (err) {
+          reject(err);
+        });
+      });
+    }
+  },
+  getters: {
+    isLoggedIn: function isLoggedIn(state) {
+      return !!state.token;
+    },
+    user: function user(state) {
+      return state.username;
+    },
+    getLoginFormLoadingResponse: function getLoginFormLoadingResponse(state) {
+      return state.loading;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/services/store.js":
 /*!****************************************!*\
   !*** ./resources/js/services/store.js ***!
@@ -20475,10 +20656,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _authStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./authStore */ "./resources/js/services/authStore.js");
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_0__.Store({
-  modules: {}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_1__.Store({
+  modules: {
+    AuthStore: _authStore__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
 }));
 
 /***/ }),

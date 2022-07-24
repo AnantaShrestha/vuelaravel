@@ -1,6 +1,10 @@
 <template>
 	<form :method="method" :class="className" :name="group" @submit.prevent="onSubmit">
-		<slot :group='group'></slot>
+		<slot 
+			:group='group
+		'>
+			
+		</slot>
 	</form>
 </template>
 
@@ -28,18 +32,16 @@
 				require:true,
 			},
 		},
-		data(){
-			return{
-				errors:{}
-			}
-		},
 		methods:{
-			onSubmit(e){
-				FormHandling.setGroup(this.group)
-				let validate = FormHandling.validation(this.group,this.validation)
-		 		if(validate === true)
-
-		 			return this.onFinish(FormHandling.getFormData(this.group))
+			onSubmit(){
+				FormHandling.setFormGroup(this.group)
+				let formData =FormData.get(this.group)
+				let validated = FormData.validated(this.validation,formData)
+  	
+				if(validated === true){
+					FormData.remove(this.group)
+					return this.onFinish(formData)
+				}
 			}
 		}
 	}

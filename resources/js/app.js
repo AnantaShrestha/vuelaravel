@@ -10,8 +10,8 @@ if(getToken){
       axios.defaults.headers.common['Authorization'] =`Bearer ${token}` 
     }
 }
-
-
+import Api from './core/api'
+window.Api =new Api()
 import router from './routes'
 import store from './services/store'
 import App from './views/layouts/default.vue'
